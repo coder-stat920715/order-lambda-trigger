@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: order-lambda-trigger
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 8080
+
+aws:
+  region: ${AWS_REGION:us-east-1}
+  lambda:
+    function-name: ${LAMBDA_FUNCTION_NAME:invoice-generator}
+    # true  -> no AWS calls, payload is only logged (safe for local dev, no credentials needed)
+    # false -> real LambdaClient using the default credentials provider chain
+    mock-mode: ${LAMBDA_MOCK_MODE:true}
+    api-call-timeout: 10s
+
+logging:
+  level:
+    com.example.orders: DEBUG
